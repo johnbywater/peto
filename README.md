@@ -1,2 +1,3 @@
-# es-example-periodic-mass-virus-testing-records
+# Peto
+
 System to record mass periodic swab tests results using eventsourcing library

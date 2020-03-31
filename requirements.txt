@@ -1,0 +1,1 @@
+eventsourcing[sqlalchemy]==8.2.1
