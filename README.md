@@ -5,6 +5,14 @@
 
 System to record mass periodic swab tests results using eventsourcing library
 
+This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemic,
+and the expectation that other such pandemics could occur in future and would need
+to be responded to with the same, or similar, capabilities as are required in this
+case.
+
+The proposed response, by Julian Peto FRS, for mass periodic testing depends on
+recording and querying the swab test results. The requirements are described below.
+
 
 ## Motivation
 
