@@ -7,5 +7,5 @@ from peto.application.samples import SamplesApplication, BatchesApplication
 
 system = System(
     PeopleApplication | HouseholdsApplication,
-    BatchesApplication | SamplesApplication | QuarantinesApplication
+    BatchesApplication | SamplesApplication | QuarantinesApplication,
 )

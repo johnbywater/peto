@@ -19,5 +19,3 @@ class PersonalQuarantineStatus(PetoAggregateRoot):
     class QuarantineNotRequired(PetoAggregateRoot.Event):
         def mutate(self, obj: "PersonalQuarantineStatus"):
             obj.is_required = False
-
-

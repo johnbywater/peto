@@ -15,11 +15,11 @@ class Sample(PetoAggregateRoot):
     class ResultRecorded(PetoAggregateRoot.Event):
         @property
         def nhs_num(self):
-            return self.__dict__['nhs_num']
+            return self.__dict__["nhs_num"]
 
         @property
         def result(self):
-            return self.__dict__['result']
+            return self.__dict__["result"]
 
         def mutate(self, obj):
             obj.result = self.result

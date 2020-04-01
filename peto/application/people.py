@@ -17,7 +17,7 @@ class PeopleApplication(ProcessApplication):
             tel_num=tel_num,
             email=email,
             postcode=postcode,
-            house_num=house_num
+            house_num=house_num,
         )
         person.__save__()
 

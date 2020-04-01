@@ -54,13 +54,19 @@ class HouseholdsApplication(ProcessApplication):
         old_house_num = event.old_house_num
         new_postcode = event.new_postcode
         new_house_num = event.new_house_num
-        old_household = self._get_household_by_address(repository, old_postcode, old_house_num)
+        old_household = self._get_household_by_address(
+            repository, old_postcode, old_house_num
+        )
         old_household.remove_person(nhs_num)
 
         try:
-            household = self._get_household_by_address(repository, new_postcode, new_house_num)
+            household = self._get_household_by_address(
+                repository, new_postcode, new_house_num
+            )
         except HouseholdNotFound:
-            household = self.register_household(postcode=new_postcode, house_num=new_house_num)
+            household = self.register_household(
+                postcode=new_postcode, house_num=new_house_num
+            )
 
         household.add_person(event.nhs_num)
         return household
@@ -69,13 +75,15 @@ class HouseholdsApplication(ProcessApplication):
         household = Household.__create__(
             originator_id=create_household_id(postcode, house_num),
             postcode=postcode,
-            house_num=house_num
+            house_num=house_num,
         )
         return household
 
     def select_household_ids(self, slot, cycle):
         selection = []
-        for household_id in self.repository.event_store.record_manager.all_sequence_ids():
+        for (
+            household_id
+        ) in self.repository.event_store.record_manager.all_sequence_ids():
             if (household_id.int % cycle) == slot:
                 selection.append(household_id)
         return selection
@@ -83,4 +91,3 @@ class HouseholdsApplication(ProcessApplication):
 
 def create_household_id(postcode, house_num):
     return uuid5(NAMESPACE_URL, f"/household/{postcode}/{house_num}")
-

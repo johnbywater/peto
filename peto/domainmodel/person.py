@@ -4,7 +4,9 @@ from peto.domainmodel.base import PetoAggregateRoot
 
 
 class Person(PetoAggregateRoot):
-    def __init__(self, name, dob, nhs_num, tel_num, email, postcode, house_num, **kwargs):
+    def __init__(
+        self, name, dob, nhs_num, tel_num, email, postcode, house_num, **kwargs
+    ):
         super(Person, self).__init__(**kwargs)
         self.name = name
         self.dob = dob
@@ -27,19 +29,19 @@ class Person(PetoAggregateRoot):
     class AddressChanged(PetoAggregateRoot.Event):
         @property
         def new_postcode(self):
-            return self.__dict__['new_postcode']
+            return self.__dict__["new_postcode"]
 
         @property
         def new_house_num(self):
-            return self.__dict__['new_house_num']
+            return self.__dict__["new_house_num"]
 
         @property
         def old_postcode(self):
-            return self.__dict__['old_postcode']
+            return self.__dict__["old_postcode"]
 
         @property
         def old_house_num(self):
-            return self.__dict__['old_house_num']
+            return self.__dict__["old_house_num"]
 
         def mutate(self, obj: "Person") -> None:
             obj.postcode = self.new_postcode

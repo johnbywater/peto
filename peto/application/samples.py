@@ -9,10 +9,7 @@ class BatchesApplication(ProcessApplication):
     persist_event_type = BatchOfResults.Event
 
     def register_batch_of_results(self, lab_id, results):
-        batch = BatchOfResults.__create__(
-            lab_id=lab_id,
-            results=results,
-        )
+        batch = BatchOfResults.__create__(lab_id=lab_id, results=results,)
         batch.__save__()
 
 
@@ -21,10 +18,7 @@ class SamplesApplication(ProcessApplication):
 
     def register_sample(self, sample_id, name, dob, nhs_num):
         sample = Sample.__create__(
-            originator_id=sample_id,
-            name=name,
-            dob=dob,
-            nhs_num=nhs_num,
+            originator_id=sample_id, name=name, dob=dob, nhs_num=nhs_num,
         )
         sample.__save__()
 

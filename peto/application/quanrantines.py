@@ -15,13 +15,17 @@ class QuarantinesApplication(ProcessApplication):
         quarantine_status_id = create_person_id(nhs_num)
 
         try:
-            quarantine_status = self._get_quarantine_status(self.repository, quarantine_status_id)
+            quarantine_status = self._get_quarantine_status(
+                self.repository, quarantine_status_id
+            )
         except PersonalQuarantineStatusNotFound:
             return False
         else:
             return quarantine_status.is_required
 
-    def _get_quarantine_status(self, repository, quarantine_status_id) -> PersonalQuarantineStatus:
+    def _get_quarantine_status(
+        self, repository, quarantine_status_id
+    ) -> PersonalQuarantineStatus:
         try:
             return repository[quarantine_status_id]
         except RepositoryKeyError:
@@ -37,7 +41,9 @@ class QuarantinesApplication(ProcessApplication):
         status = bool(event.result)
         quarantine_status_id = create_person_id(nhs_num)
         try:
-            quarantine_status = self._get_quarantine_status(repository, quarantine_status_id)
+            quarantine_status = self._get_quarantine_status(
+                repository, quarantine_status_id
+            )
         except PersonalQuarantineStatusNotFound:
             if status is True:
                 quarantine_status = PersonalQuarantineStatus.__create__(

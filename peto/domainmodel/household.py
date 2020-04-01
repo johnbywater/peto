@@ -14,7 +14,7 @@ class Household(PetoAggregateRoot):
     class PersonAdded(PetoAggregateRoot.Event):
         @property
         def nhs_num(self):
-            return self.__dict__['nhs_num']
+            return self.__dict__["nhs_num"]
 
         def mutate(self, obj: "Household"):
             obj.people.add(self.nhs_num)
@@ -25,7 +25,7 @@ class Household(PetoAggregateRoot):
     class PersonRemoved(PetoAggregateRoot.Event):
         @property
         def nhs_num(self):
-            return self.__dict__['nhs_num']
+            return self.__dict__["nhs_num"]
 
         def mutate(self, obj: "Household"):
             obj.people.remove(self.nhs_num)
