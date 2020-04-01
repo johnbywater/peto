@@ -1,11 +1,12 @@
-from eventsourcing.application.simple import SimpleApplication
+from eventsourcing.application.process import ProcessApplication
 from eventsourcing.exceptions import RepositoryKeyError
 
-from peto.domainmodel import PetoAggregateRoot, Person, create_person_id, PersonNotFound, ResultsBatch
+from peto.domainmodel.exceptions import PersonNotFound
+from peto.domainmodel.person import Person, create_person_id
 
 
-class PetoCore(SimpleApplication):
-    persist_event_type = PetoAggregateRoot.Event
+class PeopleApplication(ProcessApplication):
+    persist_event_type = Person.Event
 
     def register_person(self, name, dob, nhs_num, tel_num, email, postcode, house_num):
         person = Person.__create__(
@@ -34,9 +35,3 @@ class PetoCore(SimpleApplication):
         else:
             assert isinstance(person, Person)
             return person
-
-    def register_batch_of_results(self, lab_id, results):
-        ResultsBatch.__create__(
-            lab_id=lab_id,
-            results=results,
-        )

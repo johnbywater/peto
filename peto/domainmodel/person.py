@@ -1,10 +1,6 @@
 from uuid import uuid5, NAMESPACE_URL
 
-from eventsourcing.domain.model.aggregate import BaseAggregateRoot
-
-
-class PetoAggregateRoot(BaseAggregateRoot):
-    __subclassevents__ = True
+from peto.domainmodel.base import PetoAggregateRoot
 
 
 class Person(PetoAggregateRoot):
@@ -21,6 +17,7 @@ class Person(PetoAggregateRoot):
     def change_address(self, new_postcode, new_house_num):
         self.__trigger_event__(
             self.AddressChanged,
+            nhs_num=self.nhs_num,
             old_postcode=self.postcode,
             old_house_num=self.house_num,
             new_postcode=new_postcode,
@@ -50,15 +47,4 @@ class Person(PetoAggregateRoot):
 
 
 def create_person_id(nhs_num):
-    return uuid5(NAMESPACE_URL, f"/nhs_num/{nhs_num}")
-
-
-class PersonNotFound(Exception):
-    pass
-
-
-class ResultsBatch(PetoAggregateRoot):
-    def __init__(self, lab_id, results, **kwargs):
-        super(ResultsBatch, self).__init__(**kwargs)
-        self.lab_id = lab_id
-        self.results = results
+    return uuid5(NAMESPACE_URL, f"/person/{nhs_num}")
