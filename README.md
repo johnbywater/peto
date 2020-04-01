@@ -5,13 +5,16 @@
 
 System to support mass periodic testing for infectious disease.
 
-This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemic,
-and the expectation that other such pandemics could occur in future and would need
-to be responded to with the same, or similar, capabilities as are required in this
-case.
+This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemic.
 
-The proposed response, by Julian Peto FRS, for mass periodic testing depends on
-recording and querying the swab test results. The requirements are described below.
+Mass periodic testing is a response proposed by Julian Peto FRS which depends on
+dispatching and processing swabs, and recording test results. The requirements are
+described below.
+
+This approach offers a way to end the lockdown that many of us are currently experiencing
+without returning to the "let rip" mass deaths scenario. Looking beyond the current crisis,
+there is a possibility that future epidemics could also be responded to with mass periodic
+testing.
 
 
 ## Motivation
