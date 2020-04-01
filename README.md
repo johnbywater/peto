@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/johnbywater/peto.svg?branch=master)](https://travis-ci.org/johnbywater/peto)
 [![Coverage Status](https://coveralls.io/repos/github/johnbywater/peto/badge.svg?branch=master#)](https://coveralls.io/github/johnbywater/peto)
 
-System to record mass periodic swab tests results using eventsourcing library
+System to support mass periodic testing for infectious disease.
 
 This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemic,
 and the expectation that other such pandemics could occur in future and would need

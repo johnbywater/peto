@@ -6,6 +6,7 @@ from eventsourcing.system.definition import AbstractSystemRunner
 
 from peto.application.people import PeopleApplication
 from peto.application.households import HouseholdsApplication
+from peto.application.quanrantines import QuarantinesApplication
 from peto.application.samples import SamplesApplication, BatchesApplication
 from peto.application.system import system
 from peto.domainmodel.person import Person
@@ -55,10 +56,17 @@ class TestPeto(TestCase):
             samples = runner.get(SamplesApplication)
             assert isinstance(samples, SamplesApplication)
 
+            quarantines = runner.get(QuarantinesApplication)
+            assert isinstance(quarantines, QuarantinesApplication)
+
             # The national master file (separately for England, Wales, Scotland
             # and N Ireland) is everyone's name, date of birth, NHS no. and (if
             # recorded) tel and email for those registered at each household
             # address, based on current GP practice records.
+
+            # That is created by downloading centrally from the servers of the
+            # companies (EMIS and TPP) who provide almost all GP databases.
+            # Todo: Pull data from GP databases.
 
             # Register person.
             with self.assertRaises(PersonNotFound):
@@ -83,6 +91,11 @@ class TestPeto(TestCase):
             household1 = households.get_household_by_address(postcode="AA1 1AA", house_num="11a")
             self.assertEqual(household1.people, {"450 557 7104"})
 
+            # Check quarantine status for person.
+            status = quarantines.check_personal_status(nhs_num="450 557 7104")
+            self.assertEqual(status, False)
+
+
             # A direct access facility for authorised people to submit changes of address is needed.
             people.change_address(
                 nhs_num="450 557 7104", new_postcode="BB2 2BB", new_house_num="22b"
@@ -103,6 +116,7 @@ class TestPeto(TestCase):
             # Barcoded sample tubes with preprinted name and date of birth are
             # delivered and collected weekly from each household and distributed
             # to labs for testing.
+
             households_day1 = households.select_household_ids(slot=1, cycle=6)
             households_day2 = households.select_household_ids(slot=2, cycle=6)
             households_day3 = households.select_household_ids(slot=3, cycle=6)
@@ -118,7 +132,7 @@ class TestPeto(TestCase):
             self.assertEqual(households_day6, [])
 
             # Todo: Improve the reliability of generating the samples (in case of interruption).
-            #  - perhaps generates a unique number of the run, and then make sample IDs predictable.
+            #  - save the all_sample_specs in a file, and then progress through it
             all_samples_spec = generate_household_sample_specs(
                 slot=1, cycle=6, people=people, households=households
             )
@@ -134,15 +148,54 @@ class TestPeto(TestCase):
             self.assertEqual(all_samples_spec[0]['samples_spec'][0]['dob'], datetime.date(2000, 1, 1))
             self.assertIsInstance(all_samples_spec[0]['samples_spec'][0]['sample_id'], UUID)
 
+
+            # [Lab registration.]
+            lab1_id = uuid4()
+
+            # [Samples distributed, collected, taken to labs.]
+
             # Each testing lab creates a new Excel file of samples received and test
             # results for each run of 96 or 48 samples (depending on PCR machine
             # capacity) and uploads it after each run.
-            lab1_id = uuid4()
-            barcode = all_samples_spec[0]['samples_spec'][0]['sample_id']
+            lab_results_csv = [
+                (all_samples_spec[0]['samples_spec'][0]['sample_id'], 1),  # Test positive.
+            ]
             batches.register_batch_of_results(
                 lab_id=lab1_id,
-                results=[
-                    (barcode, 1),
-                ],
+                results=lab_results_csv,
             )
-            self.assertEqual(samples.get_sample(barcode).result, True)
+
+            sample_id = all_samples_spec[0]['samples_spec'][0]['sample_id']
+            self.assertEqual(samples.get_sample(sample_id).result, True)
+
+            # All scheduling of sample deliveries and collections, together with
+            # household status on all residents (all negative, all negative or
+            # untested, any positive) and hence quarantine status is also on the
+            # file, together with free fields for other info.
+
+            # Check quarantine status for person.
+            status = quarantines.check_personal_status(nhs_num="450 557 7104")
+            self.assertEqual(status, True)
+
+            lab_results_csv = [
+                (all_samples_spec[0]['samples_spec'][0]['sample_id'], 0),  # Test negative.
+            ]
+            batches.register_batch_of_results(
+                lab_id=lab1_id,
+                results=lab_results_csv,
+            )
+
+            # Check quarantine status for person.
+            status = quarantines.check_personal_status(nhs_num="450 557 7104")
+            self.assertEqual(status, False)
+
+            # Check quarantine status for household.
+            # Question: Is is better to cohort those tested positive
+            # rather than quarantining infected individuals in household?
+
+            # A facility for adding people with no NHS number or address for
+            # samples distributed by outreach workers is also needed, plus a
+            # mobile app for them to enter the tube ID no. and add name, DoB
+            # and any further info on such samples. Results would go back to
+            # the outreach worker if no address is recorded.
+            # Todo: Support for testing people with no NHS number or address.

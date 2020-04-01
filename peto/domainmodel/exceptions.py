@@ -8,3 +8,7 @@ class HouseholdNotFound(PetoException):
 
 class PersonNotFound(PetoException):
     pass
+
+
+class PersonalQuarantineStatusNotFound(PetoException):
+    pass
