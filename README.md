@@ -14,8 +14,8 @@ Peto is a reliable, scalable, event-sourced, open source software system designe
 periodic mass testing for novel infectious diseases such as Coronavirus. It has been written
 to support an expression of requirements from Julian Peto FRS, who proposed the periodic mass
 testing strategy as an effective way to avoid the mass quarantine ("lockdown") strategy and the
-mass deaths ("herd immunity") strategy in the British Medical Journal [BMJ 2020;368:m1163]. Mass
-period testing is a selective quarantine strategy that detects infected individuals regardless
+mass deaths ("herd immunity") strategy in the British Medical Journal [BMJ 2020;368:m1163].
+Periodic mass testing is a selective quarantine strategy that detects infected individuals regardless
 of whether or not they have or will develop symptoms. Periodic mass testing is an alternative
 to the selective quarantine strategy of enforced mass tracking with self reporting by those who
 have developed symptoms. This is an important difference in the case of Coronavirus because
