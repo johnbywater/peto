@@ -8,7 +8,7 @@ from peto.application.people import PeopleApplication
 from peto.application.households import HouseholdsApplication
 from peto.application.quanrantines import QuarantinesApplication
 from peto.application.samples import SamplesApplication, BatchesApplication
-from peto.application.system import system
+from peto.system import system
 from peto.domainmodel.person import Person
 from peto.domainmodel.exceptions import PersonNotFound
 
@@ -199,3 +199,35 @@ class TestPeto(TestCase):
             # and any further info on such samples. Results would go back to
             # the outreach worker if no address is recorded.
             # Todo: Support for testing people with no NHS number or address.
+            # Question: Where are swabs made? Where are the sample tubes
+            # assembled and dispatched to households? Perhaps this could be
+            # done in different places too, with different locations getting
+            # access to subsets of the dispatching (sample) specifications.
+            # Todo: Sample specifications need information about where they
+            # will be sent so that they are received by the labs.
+
+            # Who delivers the sample to the households? Postal delivery
+            # system? Community based delivery?
+
+            # Who collects the samples and sends them to the labs? Do people
+            # do this themselves, or is this community based collection?
+
+            # Who monitors quarantining? Is this voluntary? Are people provided
+            # with what they need? Are people disallowed from transport etc.?
+            # How would people be identified if they were unable to travel? Spot
+            # checks with heavy penalties?
+
+            # Question: Distribution of testing, so that all areas are covered
+            # adequately. Labs are unevenly distributed, and their providing
+            # tests to only local area means other areas will not be covered.
+            # Sample tubes sent to households need to be collected and taken
+            # to a nearby lab, in a way that minimises overall "tube miles".
+            #
+            # https://www.theguardian.com/world/2020/apr/02/small-laboratories-coronavirus-testing-time-wasted-dunkirk
+            # 'Some experts expressed concerns that not all cities or regions had large universities or research
+            # facilities that could contribute to local testing capacity, meaning regional disparities could emerge,
+            # particularly in tests on healthcare workers.
+            #
+            # '“There is definitely a potential for inequality,” said Prof Ravi Gupta, who is leading the assessment
+            # of the Samba testing at Cambridge. “That’s where government testing should be directed – that needs to
+            # be factored in.”'
