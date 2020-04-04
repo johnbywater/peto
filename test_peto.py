@@ -231,3 +231,8 @@ class TestPeto(TestCase):
             # '“There is definitely a potential for inequality,” said Prof Ravi Gupta, who is leading the assessment
             # of the Samba testing at Cambridge. “That’s where government testing should be directed – that needs to
             # be factored in.”'
+
+            # Also valid concern about centralising all patient records. The
+            # system could be run in a way that maintains the division of
+            # information in GP databases, and avoids putting everything
+            # in one place.
