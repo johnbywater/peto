@@ -7,14 +7,25 @@ System to support mass periodic testing for infectious disease.
 
 This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemic.
 
-Mass periodic testing is a response proposed by Julian Peto FRS which depends on
-dispatching and processing swabs, and recording test results. The requirements are
-described below.
 
-This approach offers a way to end the lockdown that many of us are currently experiencing
-without returning to the "let rip" mass deaths scenario. Looking beyond the current crisis,
-there is a possibility that future epidemics could also be responded to with mass periodic
-testing.
+## Abstract
+
+Peto is a reliable, scalable, event-sourced, open source software system designed to support
+periodic mass testing for novel infectious diseases such as Coronavirus. It has been written
+to support an expression of requirements from Julian Peto FRS, who proposed the periodic mass
+testing strategy as an effective way to avoid the mass quarantine ("lockdown") strategy and the
+mass deaths ("herd immunity") strategy in the British Medical Journal [BMJ 2020;368:m1163]. Mass
+period testing is a selective quarantine strategy that detects infected individuals regardless
+of whether or not they have or will develop symptoms. Periodic mass testing is an alternative
+to the selective quarantine strategy of enforced mass tracking with self reporting by those who
+have developed symptoms. This is an important difference in the case of Coronavirus because
+individuals with Coronavirus are known to become infectious before they develop symptoms, with
+some infectious individuals remaining asymptomatic. Whilst mass tracking has worked for example
+in China to support contact tracing, it may be a poor cultural fit in open democratic societies,
+and low adoption or avoidance of location tracking apps may impact on effectiveness. This software
+is designed to work with existing patient record systems, and supports dispatching of sample tubes
+from test kit distributors to households, submission of results from sample testing labs, and
+checking of quarantine status by national health service, police and public health authorities.
 
 
 ## Motivation
@@ -23,52 +34,59 @@ Coronavirus (COVID-19) is a novel human respiratory virus.
 The respiratory aspect means the virus is transmitted during
 the course of physical social interaction, which is unavoidable
 for many human activities on which society depends. Its novelty
-means there is no vaccine (and none expected for at least one year,
-perhaps two).
+means there is no vaccine (and the responsible view seems to be
+the none is expected for at least one year, perhaps two).
 
 The virus causes no symptoms in some people. But of those people who
-do develop symptoms, some people will recover and some people will die.
-The dispositions to different outcomes are not very well understood, but
-age seems to be a strong factor, with older individuals being more at risk
-than younger ones. The outcome depends upon individual biological reaction
-to being infected, partly their immune system response but also other
-factors that are not fully understood. If the number of infected people
-reaches the point where more people develop severe symptoms than a health
-service has capacity to care for, the proportion of infected people who die
-(the case fatality rate) may increase.
+do develop symptoms, some will recover and some will die. The dispositions
+to different outcomes are not very well understood, but age seems to be a
+strong factor, with older individuals being more at risk than younger ones.
+If the number of infected people reaches the point where more people
+develop severe symptoms than a health service has capacity to care for, the
+proportion of infected people who die (the case fatality rate) may increase.
 
 Respiratory viruses are relatively easily transmitted from person to person
-because they can exit through exhalation of droplets (including aerosol)
-is subsequently inhaled by another person. The can also be transmitted more
-indirectly by touching contaminated surfaces and then areas of the face such
-as eyes, mouth, and nose. Surface contamination can result from droplets landing
-on the surface and possibly from fecal smears.
+through exhalation of droplets (including aerosol) that are subsequently
+inhaled by another person. Virus can also be transmitted indirectly by touching
+contaminated surfaces and then touching parts of the face such as eyes, mouth,
+and nose. Surface contamination may result from exhaled droplets landing, from
+fecal smears, and from contact with other contaminated surfaces.
 
 The average number of people that become infected by an infected person can vary.
 If the number of people who are infected by an infectious person is greater than one,
-then over time the number of cases of tends to increase exponentially. However, if
+then over time the number of cases tends to increase exponentially. However, if
 the number of people who are infected by an infectious person is less than one, then
 over time the number of cases tends to decrease exponentially. This number is sometimes
 referred to as the "reproduction number" and varies according to the period of
-infectiousness, the degree of physical interaction, and the modes of transmission.
-Since the period of infectiousness may simply be a property of the the virus itself,
-attempts to reduce the reproduction number tend to focus on mitigating modes of
-transmission ("catch it, kill it, bin it", "wash your hands", personal protective
-equipment) during physical interaction, and on reducing the degree of physical
-interaction ("stay at home"). Quarantines prevent infected people from infecting
-other people by physical isolation for the period during which they are thought to
-be infectious ("stay at home"). Quaranines may be universal if infectious individuals
-cannot be distinguished from non-infectious individuals, or selective if infectious
-individuals can be distinguished from non-infectious individuals.
+infectiousness, the degree of physical interaction, the modes of transmission,
+and the proportion of susceptible individuals in the population. The number of
+susceptible individuals can vary as infected people recover, and also through mass
+vaccination, if a vaccine is available.
 
-When mitigating modes of transmission are insufficient, without implementing quarantine,
+Since the period of infectiousness is perhaps a function of the virus itself,
+attempts may be made to reduce the reproduction number. It is possible to try
+inhibiting modes of transmission through public health campaigns ("catch it,
+kill it, bin it", "wash your hands") and use of personal protective equipment
+(masks, respirators, eye shields, etc), to attempt a reduction in the degree
+of physical interaction ("stay at home", physical distancing). Quarantines
+prevent infected people from infecting other people by physical isolation
+for the period during which they are thought to be infectious ("stay at home").
+Quarantines may be universal if infectious individuals cannot be distinguished
+from non-infectious individuals, or selective if infectious individuals can be
+distinguished from non-infectious individuals. Quarantines can be voluntary
+(self-isolation at home) or enforced (house arrest, incarceration). Quarantines
+may be organised in cohorts to avoid infecting other members of a household,
+prison, or hospital.
+
+There are therefore policy choices to be made. When the reproduction number is
+great enough to cause a mass epidemic, without implementing a quarantine strategy,
 most people will eventually become infected. This option may over time lead to "herd
 immunity" if the individuals that recover sustain resistance to reinfection. However
-this approach will lead to a large number deaths, and may take some time for all the
+this "do nothing" approach may lead to mass deaths, and it may take some time for all the
 individuals susceptible to developing severe symptoms to die. And any herd immunity
-may fade away, or be deprecated by mutation of the virus. This is the "let rip" or
-"mass deaths" or "take it on the chin" strategy advocated by the UK Conservative
-government in early 2020.
+may fade away, or be deprecated by mutation of the virus. A public reaction may
+follow from these consequences, unless this strategy is disguised, by for example
+pretending or promising to adopt a different strategy without actually doing so.
 
 The alternatives to the "mass deaths" strategy are the various quarantine strategies.
 Infected individuals can be quarantined either by mass quarantine ("lockdown") or by
@@ -77,15 +95,16 @@ mass testing" to detect infected individuals whether they have developed
 symptoms or not, or with "mass tracking" so that when a person develops symptoms
 and feels unwell they can be tested and their contacts can be traced and tested.
 
-The "mass deaths" strategy causes severe detriment to well-being, through direct
+The "mass deaths" strategy may cause severe detriment to well-being, through direct
 loss of life ("mass deaths") impacting on mental health through bereavement,
 whilst also impacting on economic activity through trauma, organisational disruption,
 and damage to the health of those who recover, and the health of those who are not
 infected but unable able to access the medical they need and would otherwise recieve.
 
-The "lockdown" strategy causes severe detriment to well-being, through direct
+The "lockdown" strategy may cause severe detriment to well-being, through direct
 damage to livelihoods and education, whilst also impacting on mental
-health through isolation ("quarantine for all") causing deaths in some individuals.
+health through isolation ("quarantine for all") causing long term damage or
+even death in some individuals.
 
 The "mass tracking" strategy avoids mass deaths and severe damage to the
 economy and the health of those who recover, but involves enforced mass tracking
@@ -93,7 +112,7 @@ of all individuals so that those who crossed the path of the infected individual
 can be identified, traced, and tested. By waiting until an infected individual
 develops symptoms, infected individuals have a greater duration of being infectious.
 In countries where this is not a good cultural fit, the effectiveness of mass
-tracking may be compriposed. 
+tracking may be compromised.
 
 The "periodic testing" strategy also avoids mass deaths and severe damage to the
 economy, and it also avoids mass tracking. It involves repeat mass testing of a
@@ -105,15 +124,14 @@ for TB in children in the 1950s.
 
 This software is designed to support selective quarantining with regular testing-for-all,
 by recording testing results and establishing the test status of individuals. The period
-can increase as the level of infection in the population decreases.
-
-The approach to responding to Coronavirus was conceived by Julian Peto FRS, and has been
-promoted by Jeremy Hunt, Tony Blair, and others.
+can increase as the level of infection in the population decreases. This approach to
+responding to Coronavirus was proposed by Julian Peto FRS, and has been promoted by
+Jeremy Hunt MP, by Tony Blair, and by others such as Bill Gates.
 
 
 ## Proposal
 
-https://www.bmj.com/content/368/bmj.m1163
+From https://www.bmj.com/content/368/bmj.m1163
 
 In Editor’s Choice of 19 March Godlee mentions the urgent need for increased capacity to test frontline healthcare workers serologically to verify their immunity to the covid-19 virus.[1] Even more urgent is capacity for weekly viral detection in the whole UK population. This, together with intensive contact tracing, could enable the country to resume normal life immediately. The virus could only survive in those who are untested, and contact tracing would often lead to them. Within the tested population anyone infected would be detected within about a week (0 to 7 days plus sample transport and testing) of becoming infectious.
 
@@ -125,6 +143,6 @@ Everyone should be tested weekly. All households and care homes would return sel
 
 ## Requirements overview
 
-The IT for this is easy. The national master file (separately for England, Wales, Scotland and N Ireland) is everyone's name, date of birth, NHS no. and (if recorded) tel and email for those registered at each household address, based on current GP practice records. That is created by downloading centrally from the servers of the companies (EMIS and TPP) who provide almost all GP databases. Barcoded sample tubes with preprinted name and date of birth are delivered and collected weekly from each household and distributed to labs for testing. A direct access facility for authorised people to submit changes of address is needed. Each testing lab creates a new Excel file of samples received and test results for each run of 96 or 48 samples (depending on PCR machine capacity) and uploads it after each run. The national master file is thus always up to date and labs retain complete records of their work. All scheduling of sample deliveries and collections, together with household status on all residents (all negative, all negative or untested, any positive) and hence quarantine status is also on the file, together with free fields for other info. A facility for adding people with no NHS number or address for samples distributed by outreach workers is also needed, plus a mobile app for them to enter the tube ID no. and add name, DoB and any further info on such samples. Results would go back to the outreach worker if no address is recorded.
+The national master file (separately for England, Wales, Scotland and N Ireland) is everyone's name, date of birth, NHS no. and (if recorded) tel and email for those registered at each household address, based on current GP practice records. That is created by downloading centrally from the servers of the companies (EMIS and TPP) who provide almost all GP databases. Barcoded sample tubes with preprinted name and date of birth are delivered and collected weekly from each household and distributed to labs for testing. A direct access facility for authorised people to submit changes of address is needed. Each testing lab creates a new Excel file of samples received and test results for each run of 96 or 48 samples (depending on PCR machine capacity) and uploads it after each run. The national master file is thus always up to date and labs retain complete records of their work. All scheduling of sample deliveries and collections, together with household status on all residents (all negative, all negative or untested, any positive) and hence quarantine status is also on the file, together with free fields for other info. A facility for adding people with no NHS number or address for samples distributed by outreach workers is also needed, plus a mobile app for them to enter the tube ID no. and add name, DoB and any further info on such samples. Results would go back to the outreach worker if no address is recorded.
 
 It would be a mistake to have more complex IT. It can all be managed through one simple master file by giving NHS, police and public health full access to the master database and limited access for other users.
