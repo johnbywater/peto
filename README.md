@@ -47,10 +47,11 @@ proportion of infected people who die (the case fatality rate) may increase.
 
 Respiratory viruses are relatively easily transmitted from person to person
 through exhalation of droplets (including aerosol) that are subsequently
-inhaled by another person. Virus can also be transmitted indirectly by touching
-contaminated surfaces and then touching parts of the face such as eyes, mouth,
-and nose. Surface contamination may result from exhaled droplets landing, from
-fecal smears, and from contact with other contaminated surfaces.
+inhaled by another person. This can happen by coughing and sneezing but heavy
+breathing and during conversations. Virus can also be transmitted indirectly
+by touching contaminated surfaces and then touching parts of the face such as
+eyes, mouth, and nose. Surface contamination may result from exhaled droplets
+landing, from fecal smears, and from contact with other contaminated surfaces.
 
 The average number of people that become infected by an infected person can vary.
 If the number of people who are infected by an infectious person is greater than one,
