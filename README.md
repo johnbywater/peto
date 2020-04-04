@@ -13,19 +13,19 @@ This system is motivated by the occurrence of the Cononavirus (COVID-19) pandemi
 Peto is a reliable, scalable, event-sourced, open source software system designed to support
 periodic mass testing for novel infectious diseases such as Coronavirus. It has been written
 to support an expression of requirements from Julian Peto FRS, who proposed the periodic mass
-testing strategy as an effective way to avoid the mass quarantine ("lockdown") strategy and the
-mass deaths ("herd immunity") strategy in the British Medical Journal [BMJ 2020;368:m1163].
-Periodic mass testing is a selective quarantine strategy that detects infected individuals regardless
-of whether or not they have or will develop symptoms. Periodic mass testing is an alternative
-to the selective quarantine strategy of enforced mass tracking with self reporting by those who
+testing strategy in the British Medical Journal [BMJ 2020;368:m1163] as an effective way to
+avoid both the mass quarantine ("lockdown") strategy and the mass deaths ("herd immunity") strategy.
+Periodic mass testing supports a selective quarantine strategy that detects infected
+individuals regardless of whether or not they have or will develop symptoms. Periodic mass
+testing is an alternative to enforced mass tracking with self reporting by those who
 have developed symptoms. This is an important difference in the case of Coronavirus because
 individuals with Coronavirus are known to become infectious before they develop symptoms, with
 some infectious individuals remaining asymptomatic. Whilst mass tracking has worked for example
-in China to support contact tracing, it may be a poor cultural fit in open democratic societies,
-and low adoption or avoidance of location tracking apps may impact on effectiveness. This software
-is designed to work with existing patient record systems, and supports dispatching of sample tubes
-from test kit distributors to households, submission of results from sample testing labs, and
-checking of quarantine status by national health service, police and public health authorities.
+in China to support contact tracing,  mass tracking may be a poor cultural fit in open democratic
+societies, and low adoption or avoidance of location tracking apps may impact on effectiveness.
+This software is designed to be integrated with existing patient record systems, dispatching
+of sample tubes from test kit distributors to households, submission of results from sample testing
+labs, and checking of quarantine status by national health service, police and public health authorities.
 
 
 ## Motivation
